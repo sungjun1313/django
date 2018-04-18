@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="pt-4 mb-3">Registration Completed Successfully</h1>
+    <div class="card">
+        <div class="card-body">
+            Thank you for registration.&nbsp;&nbsp;
+            <a href="{% url 'login' %}">Login again</a>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+    <h1 class="pt-4 mb-3">Post Create&sol;Update - {{ user }}</h1>
+    <form action="." method="post" class="blogAdd">
+        {% csrf_token %}
+        {% if form.errors %}
+            <p><b><i>Wrong! Please correct the errors below.</i></b></p>
+        {% endif %}
+        <div>
+            {{ form.title.label_tag }}
+            {{ form.title }}
+        </div>
+        <div>
+            {{ form.slug.label_tag }}
+            {{ form.slug }}
+        </div>
+        <div>
+            {{ form.description.label_tag }}
+            {{ form.description }}
+        </div>
+        <div>
+            {{ form.content.label_tag }}
+            {{ form.content }}
+        </div>
+        <div>
+            {{ form.tag.label_tag }}
+            {{ form.tag }}
+        </div>
+        <div class="mb-3">
+            <input type="submit" class="btn btn-primary" value="Submit" />
+        </div>
+        <script type="text/javascript">
+            document.getElementById('id_title').focus();
+            $(".blogAdd>div").addClass("form-group");
+            $(".blogAdd input[type='text'], .blogAdd textarea").addClass("form-control");
+            $("#id_slug").prop("readonly",true);
+        </script>
+    </form>
+{% endblock content %}

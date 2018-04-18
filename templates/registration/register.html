@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+    <h1 class="pt-4 mb-3">New User Registration</h1>
+    <form method="post" action="." class="joinForm">
+        {% csrf_token %}
+        {% if form.errors %}
+            <p><b><i>Wrong! Please correct the errors below.</i></b></p>
+        {% endif %}
+        <div>
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+        <div>
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+        </div>
+        <div>
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+        </div>
+        <div>
+            <input type="submit" class="btn btn-primary" value="Register" />
+        </div>
+
+        <script type="text/javascript">
+            document.getElementById('id_username').focus();
+            $(".joinForm>div").addClass("form-group");
+            $(".joinForm input[type='text'], .joinForm input[type='password']").addClass("form-control");
+        </script>
+    </form>
+{% endblock content %}

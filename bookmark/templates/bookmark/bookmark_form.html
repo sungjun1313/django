@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+    <h1 class="pt-4 mb-3">Bookmark Create&sol;Update - {{ user }}</h1>
+    <form action="." method="post" class="bookmarkAdd">
+        {% csrf_token %}
+        {% if form.errors %}
+            <p><b><i>Wrong! Please correct the errors below.</i></b></p>
+        {% endif %}
+        <div>
+            {{ form.title.label_tag }}
+            {{ form.title }}
+        </div>
+        <div>
+            {{ form.url.label_tag }}
+            {{ form.url }}
+        </div>
+        <div>
+            <input type="submit" class="btn btn-primary" value="Submit" />
+        </div>
+
+        <script type="text/javascript">
+            document.getElementById('id_title').focus();
+            $(".bookmarkAdd>div").addClass("form-group");
+            $(".bookmarkAdd input[type='text'], .bookmarkAdd input[type='url']").addClass("form-control");
+        </script>
+    </form>
+{% endblock content %}

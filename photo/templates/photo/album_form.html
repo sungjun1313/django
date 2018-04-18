@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+    <h1 class="pt-4 mb-3">Create&sol;Update Album</h1>
+    {% if form.errors %}
+        <p><b><i>Wrong! Please correct the errors below.</i></b></p>
+    {% endif %}
+    {% if formset.errors %}
+        <p><b><i>Wrong! Please correct the errors below.</i></b></p>
+    {% endif %}
+    <form enctype="multipart/form-data" method="post" action="." class="albumAdd">
+        {% csrf_token %}
+        <div>
+            {{ form.name.label_tag }}
+            {{ form.name }}
+        </div>
+        <div>
+            {{ form.description.label_tag }}
+            {{ form.description }}
+        </div>
+        <hr>
+        <h4>Create&sol;Update Photo</h4>
+        {% for form in formset %}
+            <div>
+                {{ form.id }}
+            </div>
+            <div>
+                {{ form.image.label_tag }}
+                {{ form.image }}
+            </div>
+            <div>
+                {{ form.title.label_tag }}
+                {{ form.title }}
+            </div>
+            <div>
+                {{ form.description.label_tag }}
+                {{ form.description }}
+            </div>
+        {% endfor %}
+        <div>
+            <input type="submit" class="btn btn-primary" value="Submit" />
+        </div>
+
+        <script type="text/javascript">
+            document.getElementById('id_name').focus();
+            $(".albumAdd>div").addClass("form-group");
+            $(".albumAdd input[type='text'], .albumAdd textarea, .albumAdd input[type='file']").addClass("form-control");
+        </script>
+    </form>
+{% endblock content %}

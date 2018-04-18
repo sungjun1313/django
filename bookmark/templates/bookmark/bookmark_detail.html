@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="pt-4">{{ object.title }}</h1>
+    <ul class="list-group mt-3">
+        <li class="list-group-item">URL : <a href="{{ object.url }}">{{ object.url }}</a></li>
+    </ul>
+{% endblock content %}
+

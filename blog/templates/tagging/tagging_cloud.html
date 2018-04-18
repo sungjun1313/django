@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="pt-4 mb-3">Blog Tag Cloud</h1>
+    <div>
+        {% load tagging_tags %}
+        {% tag_cloud_for_model blog.Post as tags %}
+        {% for tag in tags %}
+            <a href="{% url 'blog:tagged_object_list' tag.name %}" class="badge badge-success">
+                {{ tag.name }}
+            </a>
+        {% endfor %}
+    </div>
+{% endblock content %}

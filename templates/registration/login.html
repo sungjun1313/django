@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+    <h1 class="pt-4 mb-3">Please Login</h1>
+    <form action="." method="post" class="loginForm">
+        {% csrf_token %}
+        {% if form.errors %}
+            <p><b><i>Wrong! please correct the errors below.</i></b></p>
+        {% endif %}
+        <div>
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+
+        <div>
+            {{ form.password.label_tag }}
+            {{ form.password }}
+        </div>
+        <div>
+            <input type="submit" class="btn btn-primary" value="LogIn"/>
+            <input type="hidden" name="next" value="{{ next }}" />
+        </div>
+
+        <script type="text/javascript">
+            document.getElementById('id_username').focus();
+            $(".loginForm>div").addClass("form-group");
+            $(".loginForm input[type='text'], .loginForm input[type='password']").addClass("form-control");
+        </script>
+    </form>
+{% endblock content %}

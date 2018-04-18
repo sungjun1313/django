@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="pt-4 mb-3">Photo Delete</h1>
+    <form action="." method="post">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-body">
+                Are you sure you want to delete <b>&lt;{{ object }}&gt;</b>?
+                <div class="form-group mt-3">
+                    <input type="submit" class="btn btn-primary" value="Delete" />
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock content %}

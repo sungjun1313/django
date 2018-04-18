@@ -1,0 +1,158 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}Django Web{% endblock title %}</title>
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+        <script src="{% static 'script/jquery-3.2.1.min.js' %}"></script>
+        <style>
+            .imgA {
+                display: block;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="fixed-top sticky-top">
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <a class="navbar-brand" href="{% url 'home' %}">Jun's Project</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="m-auto"></div>
+                    <ul class="navbar-nav ">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Bookmark
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'bookmark:index' %}">Bookmark</a>
+                                <a class="dropdown-item" href="{% url 'bookmark:add' %}">Add</a>
+                                <a class="dropdown-item" href="{% url 'bookmark:change' %}">Change</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Blog
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'blog:index' %}">Blog</a>
+                                <a class="dropdown-item" href="{% url 'blog:add' %}">Add</a>
+                                <a class="dropdown-item" href="{% url 'blog:change' %}">Change</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Photo
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'photo:index' %}">Photo</a>
+                                <a class="dropdown-item" href="{% url 'photo:photo_add' %}">Add</a>
+                                <a class="dropdown-item" href="{% url 'photo:photo_change' %}">Change</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Util
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'blog:post_archive' %}">Archive</a>
+                                <a class="dropdown-item" href="{% url 'blog:search' %}">Search</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            {% if user.is_active %}
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Welcome <strong>{% firstof user.get_short_name user.get_username %}</strong>
+                            </a>
+                            <div class="dropdown-menu" id="down" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'password_change' %}">Chang Password</a>
+                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                            </div>
+                            {% else %}
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Welcome Anonymous
+                            </a>
+                            <div class="dropdown-menu" id="down" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                                <a class="dropdown-item" href="{% url 'register' %}">Resiter</a>
+                            </div>
+                            {% endif %}
+                        </li>
+                    </ul>
+                    <!--
+                    <form class="form-inline my-2 my-lg-0" method="post">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button">Button</button>
+                            </div>
+                        </div>
+                    </form>-->
+                </div>
+            </nav>
+        </header>
+
+        <section class="container" style="overflow:hidden;">
+            {% block content %}{% endblock content %}
+        </section>
+
+
+        <footer>
+            {% block footer %}{% endblock footer %}
+        </footer>
+
+        <script>
+
+            var agent = navigator.userAgent.toLowerCase();
+            if ( (navigator.appName == 'Netscape' && agent.indexOf('trident') != -1) || (agent.indexOf("msie") != -1)) {
+                // ie일 경우
+                function ini() {
+                    var headerH = $("header").outerHeight();
+                    $("section").css("margin-top", headerH+"px");
+                }
+                ini();
+                $(window).resize(function (){
+                    ini();
+                });
+            }
+
+            function ini2() {
+                var winW = $(window).innerWidth();
+
+                if(winW > 806){
+                    $("#down").css("margin-left",-30+"px");
+                }else if(winW > 750){
+                    $("#down").css("margin-left",-40+"px");
+                } else{
+                    $("#down").removeAttr("style");
+                }
+
+                if(winW > 806){
+                    $(".album>div").removeClass("w-100").addClass("float-left w-25");
+
+                }else{
+                    $(".album>div").removeClass("float-left w-25").addClass("w-100");
+
+                }
+                $(".imgBox").css("overflow","auto");
+            }
+
+            ini2();
+            $(window).resize(function(){
+                ini2();
+            });
+
+            $(".form").css("overflow","auto");
+            $(".form>p").addClass("form-group");
+            $(".form>p input[type='text']").addClass("form-control");
+        </script>
+
+
+        <script src="{% static 'script/bootstrap.min.js' %}"></script>
+    </body>
+</html>

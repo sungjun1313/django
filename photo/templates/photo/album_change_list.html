@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="pt-4 mb-3">Album Chnage - {{ user }}</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in object_list %}
+            <tr>
+                <td><a href="{% url 'photo:album_detail' item.id %}">{{ item.name }}</a></td>
+                <td><a href="{% url 'photo:album_update' item.id %}">Update</a></td>
+                <td><a href="{% url 'photo:album_delete' item.id %}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

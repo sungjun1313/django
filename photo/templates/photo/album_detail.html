@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+    <h2 class="pt-4">{{ object.name }}</h2>
+    <p><b><i>{{ object.description }}</i></b></p>
+    <hr/>
+    <div class="album">
+        {% for photo in object.photo_set.all %}
+            <div class="float-left w-25 text-center mb-4">
+                <a href="{{ photo.get_absolute_url }}" class="imgA">
+                    <img src="{{ photo.image.thumb_url }}" class="m-auto"/>
+                    <div>{{ photo.title }}</div>
+                    <div>{{ photo.upload_date|date:"Y-m-d" }}</div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

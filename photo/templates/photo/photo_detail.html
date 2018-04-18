@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+    <h2 class="pt-4 mb-3">{{ object.title }}</h2>
+    <div class="border imgBox p-3">
+        <div class="col-sm-6 col-12 float-left mb-3">
+            <a href="{{ object.image.url }}">
+                <img class="card-img-top w-100" src="{{ object.image.url }}" alt="Card image cap">
+            </a>
+        </div>
+        <div class="col-sm-6 col-12 float-left">
+            <p><b>Photo Description</b></p>
+            {% if object.description %}
+            <p>{{ object.description|linebreaks }}</p>
+            {% else %}
+                <p class="card-text"><i>No Description</i></p>
+            {% endif %}
+            <p class="mt-4"><b>Date Uploaded</b></p>
+            <p>{{ object.upload_date }}</p>
+            <p class="mt-4"><b>Album Name</b></p>
+            <p>
+                <a href="{% url 'photo:album_detail' object.album.id %}">{{ object.album.name }}</a>
+            </p>
+            <hr>
+            <p>
+                <a href="{% url 'photo:album_list'%}">Total Album</a>
+            </p>
+        </div>
+    </div>
+{% endblock content %}

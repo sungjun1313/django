@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="pt-4">Posts for tag - {{ tag.name }}</h1>
+    {% for post in object_list %}
+        <div class="card mt-3">
+            <div class="card-header">
+                {{ post.modify_date|date:"N d, Y" }}
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ post.description }}</p>
+                <a href="{{ post.get_absolute_url }}" class="btn btn-primary">{{ post.title }}</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}

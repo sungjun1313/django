@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="pt-4">Blog Search</h1>
+    <form action="." method="post" class="form mt-3 form-group border p-3">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input class="btn btn-primary float-right" type="submit" value="Submit" />
+    </form>
+    {% if object_list %}
+        {% for post in object_list %}
+            <div class="card mt-3 mb-3">
+                <div class="card-header">
+                    {{ post.modify_date|date:"N d, Y" }}
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ post.description }}</p>
+                    <a href="{{ post.get_absolute_url }}" class="btn btn-primary">{{ post.title }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% elif search_term %}
+        <b><i>Search Word-{{ search_term }} Not Found!</i></b>
+    {% endif %}
+{% endblock content %}
