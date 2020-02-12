@@ -1,4 +1,4 @@
-django==1.11.13
+django==1.11.28
 pytz==2018.4
 django-tagging==0.4.6
 django-disqus==0.5
